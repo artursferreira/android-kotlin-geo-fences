@@ -60,13 +60,15 @@ class HuntMainActivity : AppCompatActivity() {
     private lateinit var geofencingClient: GeofencingClient
     private lateinit var viewModel: GeofenceViewModel
 
-    private val runningQOrLater =
-        android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
+
+    private val runningQOrLater = android.os.Build.VERSION.SDK_INT >=
+            android.os.Build.VERSION_CODES.Q
 
     // A PendingIntent for the Broadcast Receiver that handles geofence transitions.
     private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
         intent.action = ACTION_GEOFENCE_EVENT
+
         // Use FLAG_UPDATE_CURRENT so that you get the same pending intent back when calling
         // addGeofences() and removeGeofences().
         PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -98,6 +100,7 @@ class HuntMainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TURN_DEVICE_LOCATION_ON) {
+
             // We don't rely on the result code, but just check the location setting again
             checkDeviceLocationSettingsAndStartGeofence(false)
         }
@@ -261,7 +264,7 @@ class HuntMainActivity : AppCompatActivity() {
             }
             else -> REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
         }
-
+      
         Log.d(TAG, "Request foreground only location permission")
         ActivityCompat.requestPermissions(
             this@HuntMainActivity,
@@ -364,6 +367,7 @@ class HuntMainActivity : AppCompatActivity() {
             }
         }
     }
+
     companion object {
         internal const val ACTION_GEOFENCE_EVENT =
             "HuntMainActivity.treasureHunt.action.ACTION_GEOFENCE_EVENT"
